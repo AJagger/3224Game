@@ -5,7 +5,7 @@
 */
 
 #include "stdafx.h"
-#include "../../Frameworks/DataArray.cpp" //Temp fix to Linker Errors
+#include "../Frameworks/DataArray.cpp" //Temp fix to Linker Errors
 #include "ResouceLoader.h"
 #include "../Renderer/SOIL/SOIL.h"
 #include <sstream>
@@ -217,6 +217,8 @@ CollisionMesh ResourceLoader::ImportCollisionMesh(const string & collisionMeshPa
 
 		ss.clear();
 	}
+
+	f.close();
 
 	return CollisionMesh{ vertices, numVertices };
 }

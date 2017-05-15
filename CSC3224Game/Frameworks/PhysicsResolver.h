@@ -6,10 +6,10 @@
 */
 
 #pragma once
-#include "Box2D.h"
-#include "Dynamics/b2World.h"
+#include "../Physics/Box2D-master/Box2D/Box2D/Box2D.h"
+#include "../Physics/Box2D-master/Box2D/Box2D/Dynamics/b2World.h"
 #include "../Game/DemoCode/DemoGameObject.h"
-#include "Common/b2Math.h"
+#include "../Physics/Box2D-master/Box2D/Box2D/Common/b2Math.h"
 #include "DataArray.h"
 
 struct CollisionMesh

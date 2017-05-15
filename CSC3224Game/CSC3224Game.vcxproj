@@ -71,12 +71,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)CSC3224Game\Physics\Box2D-master\Box2D;$(SolutionDir)CSC3224Game\Physics\Box2D-master\Box2D\Box2D;$(SolutionDir)CSC3224Game\Renderer\GLEW\include;$(SolutionDir)CSC3224Game\Renderer\SOIL;$(WWISESDK)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)CSC3224Game\Physics\Box2D-master\Box2D\Build\vs2015\bin\x32\$(Configuration);$(SolutionDir)CSC3224Game\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)CSC3224Game\Renderer\SOIL\$(Configuration);$(WWISESDK)Metro_x64_vc140\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)CSC3224Game\Physics\Box2D-master\Box2D;$(SolutionDir)CSC3224Game\Physics\Box2D-master\Box2D\Box2D;$(SolutionDir)CSC3224Game\Renderer\GLEW\include;$(SolutionDir)CSC3224Game\Renderer\SOIL;$(WWISESDK)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)CSC3224Game\Physics\Box2D-master\Box2D\Build\vs2015\bin\x32\$(Configuration);$(SolutionDir)CSC3224Game\Renderer\GLEW\lib\$(Configuration);$(SolutionDir)CSC3224Game\Renderer\SOIL\$(Configuration);$(WWISESDK)Metro_x64_vc140\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -88,6 +92,8 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)CSC3224Game/Physics/Box2D-master/Box2D/Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalUsingDirectories>../ncglExpansion/;../Renderer/GLEW/include/;../Renderer/ncgl/;../GLEW/include/;/Renderer/GLEW/include/;/Renderer/ncglExpansion/;/Renderer/nclgl/;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,6 +122,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalUsingDirectories>../ncglExpansion/;../Renderer/GLEW/include/;../Renderer/ncgl/;../GLEW/include/;/Renderer/GLEW/include/;/Renderer/ncglExpansion/;/Renderer/nclgl/;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)CSC3224Game/Physics/Box2D-master/Box2D/Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,7 +173,6 @@
     <ClInclude Include="Game\DemoCode\DemoGameRules.h" />
     <ClInclude Include="Game\DemoCode\DemoKeyInterpreter.h" />
     <ClInclude Include="Game\DemoCode\stdafx.h" />
-    <ClInclude Include="Renderer\nclglExpansion\Renderer.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -186,13 +193,20 @@
     <ClCompile Include="Game\DemoCode\DemoGameObject.cpp" />
     <ClCompile Include="Game\DemoCode\DemoGameRules.cpp" />
     <ClCompile Include="Game\DemoCode\DemoKeyInterpreter.cpp" />
-    <ClCompile Include="Renderer\nclglExpansion\Renderer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Physics\Box2D-master\Box2D\Build\vs2015\Box2D.vcxproj">
+      <Project>{98400d17-43a5-1a40-95be-c53ac78e7694}</Project>
+    </ProjectReference>
+    <ProjectReference Include="Renderer\nclgl\nclgl.vcxproj">
+      <Project>{98d6b51b-cb0a-4389-adc6-24082b967c3f}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

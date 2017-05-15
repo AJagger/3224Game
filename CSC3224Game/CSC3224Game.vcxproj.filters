@@ -19,9 +19,6 @@
     <Filter Include="Frameworks">
       <UniqueIdentifier>{3146a110-63b0-4241-8162-112b556eab91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="nclglExpansion">
-      <UniqueIdentifier>{865f00ef-0edd-4997-a7ae-6191a7b5e015}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{930754d7-097f-4dde-87c5-b333d592786c}</UniqueIdentifier>
     </Filter>
@@ -87,9 +84,6 @@
     <ClInclude Include="Frameworks\stdafx.h">
       <Filter>Frameworks</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\nclglExpansion\Renderer.h">
-      <Filter>nclglExpansion</Filter>
-    </ClInclude>
     <ClInclude Include="Game\DemoCode\DemoGameObject.h">
       <Filter>Game\DemoCode</Filter>
     </ClInclude>
@@ -148,9 +142,6 @@
     </ClCompile>
     <ClCompile Include="Frameworks\Sound.cpp">
       <Filter>Frameworks</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer\nclglExpansion\Renderer.cpp">
-      <Filter>nclglExpansion</Filter>
     </ClCompile>
     <ClCompile Include="Game\DemoCode\DemoGameObject.cpp">
       <Filter>Game\DemoCode</Filter>

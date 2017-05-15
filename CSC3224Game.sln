@@ -4,10 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CSC3224Game", "CSC3224Game\CSC3224Game.vcxproj", "{59C056D5-4E59-431C-B5FE-7F349F58F214}"
+	ProjectSection(ProjectDependencies) = postProject
+		{98400D17-43A5-1A40-95BE-C53AC78E7694} = {98400D17-43A5-1A40-95BE-C53AC78E7694}
+		{98D6B51B-CB0A-4389-ADC6-24082B967C3F} = {98D6B51B-CB0A-4389-ADC6-24082B967C3F}
+	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nclgl", "..\3224Engine\3224Engine\Renderer\nclgl\nclgl.vcxproj", "{98D6B51B-CB0A-4389-ADC6-24082B967C3F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Box2D", "CSC3224Game\Physics\Box2D-master\Box2D\Build\vs2015\Box2D.vcxproj", "{98400D17-43A5-1A40-95BE-C53AC78E7694}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Box2D", "..\3224Engine\3224Engine\Physics\Box2D-master\Box2D\Build\vs2015\Box2D.vcxproj", "{98400D17-43A5-1A40-95BE-C53AC78E7694}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nclgl", "CSC3224Game\Renderer\nclgl\nclgl.vcxproj", "{98D6B51B-CB0A-4389-ADC6-24082B967C3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,12 +29,6 @@ Global
 		{59C056D5-4E59-431C-B5FE-7F349F58F214}.Release|x64.Build.0 = Release|x64
 		{59C056D5-4E59-431C-B5FE-7F349F58F214}.Release|x86.ActiveCfg = Release|Win32
 		{59C056D5-4E59-431C-B5FE-7F349F58F214}.Release|x86.Build.0 = Release|Win32
-		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Debug|x64.ActiveCfg = Debug|Win32
-		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Debug|x86.ActiveCfg = Debug|Win32
-		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Debug|x86.Build.0 = Debug|Win32
-		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Release|x64.ActiveCfg = Release|Win32
-		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Release|x86.ActiveCfg = Release|Win32
-		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Release|x86.Build.0 = Release|Win32
 		{98400D17-43A5-1A40-95BE-C53AC78E7694}.Debug|x64.ActiveCfg = Debug|x64
 		{98400D17-43A5-1A40-95BE-C53AC78E7694}.Debug|x64.Build.0 = Debug|x64
 		{98400D17-43A5-1A40-95BE-C53AC78E7694}.Debug|x86.ActiveCfg = Debug|Win32
@@ -39,6 +37,12 @@ Global
 		{98400D17-43A5-1A40-95BE-C53AC78E7694}.Release|x64.Build.0 = Release|x64
 		{98400D17-43A5-1A40-95BE-C53AC78E7694}.Release|x86.ActiveCfg = Release|Win32
 		{98400D17-43A5-1A40-95BE-C53AC78E7694}.Release|x86.Build.0 = Release|Win32
+		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Debug|x64.ActiveCfg = Debug|Win32
+		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Debug|x86.ActiveCfg = Debug|Win32
+		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Debug|x86.Build.0 = Debug|Win32
+		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Release|x64.ActiveCfg = Release|Win32
+		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Release|x86.ActiveCfg = Release|Win32
+		{98D6B51B-CB0A-4389-ADC6-24082B967C3F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
