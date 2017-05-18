@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameRules.h"
 #include "../../Frameworks/DataArray.cpp"
+#include <valarray>
 
 GameRules::GameRules()
 {
@@ -29,6 +30,23 @@ void GameRules::Fire(GameScene * gameScene, StandardGameObject * source, Vector2
 
 		if (source->weapon == BC304_RAILGUN)
 		{
+			//Set the spawn points on the Deadalus model
+			Vector3 spawn1InitialPosition = Vector3(-0.3, 0.6, 0);
+			Vector3 spawn2InitialPosition = Vector3(0.3, 0.6, 0);
+
+			//Update these for the rotation and position of the model
+			double rotationRadians = source->rotation * (PI / 180.0f);
+
+			Vector3 spawn1Position = 
+				Vector3(spawn1InitialPosition.x*cos(rotationRadians) - spawn1InitialPosition.y*sin(rotationRadians),
+					spawn1InitialPosition.y*cos(rotationRadians) + spawn1InitialPosition.x*sin(rotationRadians), 0);
+			Vector3 spawn2Position = 
+				Vector3(spawn2InitialPosition.x*cos(rotationRadians) - spawn2InitialPosition.y*sin(rotationRadians),
+					spawn2InitialPosition.y*cos(rotationRadians) + spawn2InitialPosition.x*sin(rotationRadians), 0);
+			spawn1Position = spawn1Position + source->position;
+			spawn2Position = spawn2Position + source->position;
+
+			//Spawn projectile at position 1
 			StandardGameObject *newProjectile = gameScene->gameObjects.CreateNew();
 			newProjectile->ConfigureDefaultProjectile(5, 6);
 			newProjectile->physMeshId = 3;
@@ -38,12 +56,33 @@ void GameRules::Fire(GameScene * gameScene, StandardGameObject * source, Vector2
 			newProjectile->hostile = false;
 			newProjectile->markedForDeletion = false;
 
-			Vector2 movement = mouseLocation - Vector2(source->position.x, source->position.y);
+			Vector2 movement = mouseLocation - Vector2(spawn1Position.x, spawn1Position.y);
 			movement.Normalise();
-			movement = movement * 0.005f;
+			movement = movement * 0.01f;
 
 			newProjectile->movementVector = movement;
-			newProjectile->position = source->position;
+			newProjectile->position = spawn1Position;
+			newProjectile->position.z = 2;
+
+			gameScene->CreateRelatedPhysicsObject(gameScene->gameObjects.GetId(*newProjectile));
+
+
+			//Spawn projectile at position 2
+			newProjectile = gameScene->gameObjects.CreateNew();
+			newProjectile->ConfigureDefaultProjectile(5, 6);
+			newProjectile->physMeshId = 3;
+			newProjectile->hasTarget = false;
+			newProjectile->weapon = BC304_RAILGUN;
+			newProjectile->AIEnabled = false;
+			newProjectile->hostile = false;
+			newProjectile->markedForDeletion = false;
+
+			movement = mouseLocation - Vector2(spawn2Position.x, spawn2Position.y);
+			movement.Normalise();
+			movement = movement * 0.01f;
+
+			newProjectile->movementVector = movement;
+			newProjectile->position = spawn2Position;
 			newProjectile->position.z = 2;
 
 			gameScene->CreateRelatedPhysicsObject(gameScene->gameObjects.GetId(*newProjectile));
