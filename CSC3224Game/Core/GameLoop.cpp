@@ -12,6 +12,8 @@
 #include <ctime>
 #include "../Frameworks/Sound.h"
 #include "../Game/DemoCode/DemoGameRules.h"
+#include "../Game/CSC3224Game/StandardKeyInterpreter.h"
+#include "../Game/CSC3224Game/GameRules.h"
 
 GameLoop::GameLoop(GameState *gameState, GameScene *gameScene)
 {
@@ -32,7 +34,7 @@ GameLoop::~GameLoop()
 void GameLoop::RunLoop()
 {
 	//Set up the Key Interpreter to process user input and the Draw class to interface between the renderer and other parts of the engine
-	DemoKeyInterpreter keyInterp = DemoKeyInterpreter();
+	StandardKeyInterpreter keyInterp = StandardKeyInterpreter();
 	Draw renderer = Draw();
 
 	lastTick = clock();
@@ -52,7 +54,7 @@ void GameLoop::RunLoop()
 			keyInterp.ProcessKeyPresses(input, *state, *scene);
 			//AI Processes Insert point - the game idea I have has very rudimentary AI processes which can be created when creating the actual game
 			//Process GameRules
-			DemoGameRules::EnactGameRules(scene, state);
+			GameRules::EnactGameRules(scene, state);
 			//UpdatePositions (collision detection & resolution happens here)
 			PhysicsResolver::SimulateActions(scene->world, &scene->gameObjects);
 			//RenderScene
@@ -81,7 +83,7 @@ void GameLoop::SetTickLength(int tickLength)
 //Temporary position updater to allow the game loop to function with no physics engine for testing/debugging
 void GameLoop::TempPositionUpdater()
 {
-	DemoGameObject *returnedEntity = scene->gameObjects.TryToGetFirst();
+	StandardGameObject *returnedEntity = scene->gameObjects.TryToGetFirst();
 	if (returnedEntity != nullptr)
 	{
 		if (!returnedEntity->staticObject)

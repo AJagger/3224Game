@@ -1,31 +1,39 @@
-/* CSC3224 Code
-* Author: Aidan Jagger | 130281034
-* Class Description:
-* This class implements the abstract KeyInterpreter class. It is responsible for processing collected user keypresses.
-* It supports dealing with multiple keypresses and multiple player controlled objects.
-* 
-* Currently the key configuration is stored in an enum in the header file. This is not ideal but it is functional.
-* 
-* The key presses are collected using the Keyboard class included in the ncgl library and they are referred to by values declared in
-* an enum in the Keyboard class.
-*/
-
 #include "stdafx.h"
-#include "DemoKeyInterpreter.h"
+#include "StandardKeyInterpreter.h"
 #include "../../Frameworks/DataArray.cpp" //Temp fix to Linker Errors
+#include "GameRules.h"
 
-DemoKeyInterpreter::DemoKeyInterpreter()
+StandardKeyInterpreter::StandardKeyInterpreter()
 {
 }
 
-DemoKeyInterpreter::~DemoKeyInterpreter()
+StandardKeyInterpreter::~StandardKeyInterpreter()
 {
 }
 
-void DemoKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState &gameState, GameScene &gameScene)
+void StandardKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState &gameState, GameScene &gameScene)
 {
+	//Get mouse click
+	bool leftMouse = false;
+	Vector2 mousePos = Vector2(0, 0);
+	if (Window::GetMouse()->ButtonDown(MOUSE_LEFT))
+	{
+		leftMouse = true;
+		//mousePos = Window::GetMouse()->GetAbsolutePosition();
+		POINT p;
+		GetCursorPos(&p);
+		ScreenToClient(gameState.gameWindow.GetHandle(), &p);
+		mousePos.x = ((float)p.x *32) / 1920;
+		mousePos.y = ((1080 - (float)p.y)*20)  / 1080;
+		ShowCursor(TRUE);
+		//mousePos.x = mousePos.x / 32;
+		//mousePos.y = mousePos.y / 20;
+		//mousePos.x = (mousePos.x / 192) + 10/* * 32*/;
+		//mousePos.y = (mousePos.y / 108) + 10/* * 20*/;
+	}
+
 	//If no key presses then do nothing
-	if (!keys.empty())
+	if (!keys.empty() || leftMouse)
 	{
 		//Look for controlled entities and store Ids in vector. Saves lookups when processing multiple keypresses.
 		StandardGameObject *returnedEntity = gameScene.gameObjects.TryToGetFirst();
@@ -46,7 +54,7 @@ void DemoKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState &gam
 			}
 
 			//If player controlled entities have been found, proceed to processing the keypresses
-			if (controlledEntities.size() > 0)
+			if (controlledEntities.size() > 0 && !keys.empty())
 			{
 				//Loop through keypresses and determine what function to perform
 				for (int i = 0; i < keys.size(); i++)
@@ -60,6 +68,7 @@ void DemoKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState &gam
 					case CONFIG_PLAYER_LEFT: Player_Left(gameScene); break;
 					case CONFIG_PLAYER_RIGHT: Player_Right(gameScene); break;
 					case CONFIG_DEBUG_TOGGLE: Debug_Toggle(gameState); break;
+					case CONFIG_WEAPON_SWITCH_1: Switch_Weapon(1); break;
 					}
 				}
 
@@ -74,6 +83,18 @@ void DemoKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState &gam
 				}
 			}
 
+			//If player controlled entities have been found, proceed to processing mouse input
+			if (controlledEntities.size() > 0 && leftMouse)
+			{
+				for (int i = 0; i < controlledEntities.size(); i++)
+				{
+					if (controlledEntities[i]->entityType == PLAYER)
+					{
+						GameRules::Fire(&gameScene, controlledEntities[i], mousePos);
+					}
+				}
+			}
+
 			//Clear the controlled entities vector
 			controlledEntities.clear();
 		}
@@ -82,7 +103,7 @@ void DemoKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState &gam
 }
 
 //For use when the logic of the game loop is unaccessable - e.g. when the game is paused so that keys can be pressed to unpause.
-void DemoKeyInterpreter::ProcessLimitedKeys(std::vector<int> keys, GameState & gameState)
+void StandardKeyInterpreter::ProcessLimitedKeys(std::vector<int> keys, GameState & gameState)
 {
 	//Loop through keypresses and determine what function to perform
 	for (int i = 0; i < keys.size(); i++)
@@ -96,17 +117,17 @@ void DemoKeyInterpreter::ProcessLimitedKeys(std::vector<int> keys, GameState & g
 	}
 }
 
-void DemoKeyInterpreter::Force_End(GameState & gamestate)
+void StandardKeyInterpreter::Force_End(GameState & gamestate)
 {
 	gamestate.end = true;
 }
 
-void DemoKeyInterpreter::Toggle_Pause(GameState & gamestate)
+void StandardKeyInterpreter::Toggle_Pause(GameState & gamestate)
 {
 	gamestate.paused = !gamestate.paused;
 }
 
-void DemoKeyInterpreter::Player_Forward(GameScene & gamescene)
+void StandardKeyInterpreter::Player_Forward(GameScene & gamescene)
 {
 	for (int i = 0; i < controlledEntities.size(); i++)
 	{
@@ -117,7 +138,7 @@ void DemoKeyInterpreter::Player_Forward(GameScene & gamescene)
 	}
 }
 
-void DemoKeyInterpreter::Player_Backward(GameScene & gamescene)
+void StandardKeyInterpreter::Player_Backward(GameScene & gamescene)
 {
 	for (int i = 0; i < controlledEntities.size(); i++)
 	{
@@ -128,7 +149,7 @@ void DemoKeyInterpreter::Player_Backward(GameScene & gamescene)
 	}
 }
 
-void DemoKeyInterpreter::Player_Left(GameScene & gamescene)
+void StandardKeyInterpreter::Player_Left(GameScene & gamescene)
 {
 	for (int i = 0; i < controlledEntities.size(); i++)
 	{
@@ -139,7 +160,7 @@ void DemoKeyInterpreter::Player_Left(GameScene & gamescene)
 	}
 }
 
-void DemoKeyInterpreter::Player_Right(GameScene & gamescene)
+void StandardKeyInterpreter::Player_Right(GameScene & gamescene)
 {
 	for (int i = 0; i < controlledEntities.size(); i++)
 	{
@@ -150,12 +171,23 @@ void DemoKeyInterpreter::Player_Right(GameScene & gamescene)
 	}
 }
 
-void DemoKeyInterpreter::Debug_Toggle(GameState & gamestate)
+void StandardKeyInterpreter::Debug_Toggle(GameState & gamestate)
 {
 	gamestate.renderer.ToggleBlendMode();
 }
 
-int DemoKeyInterpreter::DetermineOrientation(std::vector<int> keys)
+void StandardKeyInterpreter::Switch_Weapon(int weapon)
+{
+	for (int i = 0; i < controlledEntities.size(); i++)
+	{
+		if (controlledEntities[i]->entityType == PLAYER)
+		{
+			controlledEntities[i]->weapon = BC304_RAILGUN;
+		}
+	}
+}
+
+int StandardKeyInterpreter::DetermineOrientation(std::vector<int> keys)
 {
 	int rotation = 0;
 	bool forward = false, left = false, right = false , backward = false;

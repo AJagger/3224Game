@@ -1,2 +1,4 @@
 0,bigSquare.asciimesh
 1,deadalus.asciimesh
+2,square.asciimesh
+3,smallCircle.asciimesh

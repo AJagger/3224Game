@@ -36,27 +36,33 @@ GameScene::~GameScene()
 //Manage the linking of objects in game space and physics space
 void GameScene::CreateRelatedPhysicsObject(int gameObjectId)
 {
-	DemoGameObject *gameObject = gameObjects.TryToGet(gameObjectId);
-	CollisionMesh *collisionMesh = gameCollisionMeshes->TryToGet(gameObject->physMeshId);
+	StandardGameObject *gameObject = gameObjects.TryToGet(gameObjectId);
+	if (gameObject) {
+		CollisionMesh *collisionMesh = gameCollisionMeshes->TryToGet(gameObject->physMeshId);
 
-	//Only attempt to create a physics object if both the gameObject and collisionMesh are found
-	if (gameObject && collisionMesh && gameObject->collisionsEnabled) {
-		gameObject->physicsObject = PhysicsResolver::CreatePhysicsObjectFromGameObject(world, gameObject, collisionMesh);
-	}
-	else
-	{
-		gameObject->physicsObject = nullptr;
+		//Only attempt to create a physics object if both the gameObject and collisionMesh are found
+		if (gameObject && collisionMesh && gameObject->collisionsEnabled) {
+			gameObject->physicsObject = PhysicsResolver::CreatePhysicsObjectFromGameObject(world, gameObject, collisionMesh);
+		}
+		else
+		{
+			gameObject->physicsObject = nullptr;
+		}
 	}
 }
 
 //Manage the linking of objects in game space and physics space
 void GameScene::DeleteRelatedPhysicsObject(int gameObjectId)
 {
-	DemoGameObject *gameObject = gameObjects.TryToGet(gameObjectId);
+	StandardGameObject *gameObject = gameObjects.TryToGet(gameObjectId);
 
 	//Check that a gameObject has been found and that that gameObject has linked physics engine data.
 	if (gameObject && gameObject->physicsObject) {
 		PhysicsResolver::RemovePhysicsObjectFromWorld(world, gameObject);
+	}
+	else
+	{
+		cout << "Error deleting physics Object";
 	}
 }
 
@@ -66,7 +72,7 @@ void GameScene::LoadLevel(const string &sceneFile)
 	ResourceLoader::LoadObjectList(&gameObjects, sceneFile);
 
 	//Iterate through the game objects that have been added and add them into the physics simulation if required.
-	DemoGameObject *returnedEntity = gameObjects.TryToGetFirst();
+	StandardGameObject *returnedEntity = gameObjects.TryToGetFirst();
 	if (returnedEntity != nullptr)	//Continue only if there is a returned item (i.e. don't try to do anything if there are no objects in the data structure)
 	{
 		if (returnedEntity->collisionsEnabled)
@@ -109,7 +115,7 @@ void GameScene::LoadTestLevel()
 	//obj->ConfigureDefaultStatic(objMesh);
 	//obj->position = Vector2(3, 3);
 
-	DemoGameObject *obj = gameObjects.CreateNew();
+	StandardGameObject *obj = gameObjects.CreateNew();
 	int meshId = 0;
 	int textureId = 1;
 	obj->ConfigureDefaultPlayer(meshId, textureId);

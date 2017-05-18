@@ -15,6 +15,7 @@
 #include "Box2D.h"
 #include "Box2D/Common/b2Math.h"
 #include "../Frameworks/PhysicsResolver.h"
+#include "../Game/CSC3224Game/StandardGameObject.h"
 
 class GameScene
 {
@@ -25,7 +26,7 @@ public:
 	void CreateRelatedPhysicsObject(int gameObjectId);
 	void DeleteRelatedPhysicsObject(int gameObjectId);
 
-	DataArray<DemoGameObject> gameObjects = DataArray<DemoGameObject>();
+	DataArray<StandardGameObject> gameObjects = DataArray<StandardGameObject>();
 	DataArray<Mesh*> *gameMeshes;
 	DataArray<GLuint> *gameTextures;
 	DataArray<CollisionMesh> *gameCollisionMeshes;

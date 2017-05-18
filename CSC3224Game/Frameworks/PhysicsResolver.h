@@ -11,11 +11,20 @@
 #include "../Game/DemoCode/DemoGameObject.h"
 #include "../Physics/Box2D-master/Box2D/Box2D/Common/b2Math.h"
 #include "DataArray.h"
+#include "../Game/CSC3224Game/StandardGameObject.h"
+
+enum CollisionMeshType
+{
+	CM_POLYGON = 0,
+	CM_CIRCLE = 1
+};
 
 struct CollisionMesh
 {
+	CollisionMeshType meshType;
 	b2Vec2 *points;
 	int pointCount;
+	float radius;
 };
 
 class PhysicsResolver
@@ -24,7 +33,7 @@ public:
 	PhysicsResolver();
 	~PhysicsResolver();
 
-	static b2Body* CreatePhysicsObjectFromGameObject(b2World *world, DemoGameObject *gameObject, CollisionMesh *collisionMesh);
-	static void RemovePhysicsObjectFromWorld(b2World *world, DemoGameObject *gameobject);
-	static void SimulateActions(b2World *world, DataArray<DemoGameObject> *gameObjects);
+	static b2Body* CreatePhysicsObjectFromGameObject(b2World *world, StandardGameObject *gameObject, CollisionMesh *collisionMesh);
+	static void RemovePhysicsObjectFromWorld(b2World *world, StandardGameObject *gameobject);
+	static void SimulateActions(b2World *world, DataArray<StandardGameObject> *gameObjects);
 };

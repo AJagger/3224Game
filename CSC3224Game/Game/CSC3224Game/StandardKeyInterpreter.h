@@ -15,15 +15,16 @@
 #include "../../Frameworks/DataArray.h"
 #include "../../Core/GameScene.h"
 #include "../../Core/GameState.h"
-#include "DemoGameObject.h"
+#include "StandardGameObject.h"
 
-class DemoKeyInterpreter : public KeyInterpreter
+class StandardKeyInterpreter : public KeyInterpreter
 {
 public:
-	DemoKeyInterpreter();
-	~DemoKeyInterpreter();
+	StandardKeyInterpreter();
+	~StandardKeyInterpreter();
 
 	void ProcessKeyPresses(std::vector<int> keys, GameState &gameState, GameScene &gameScene) override;
+	void ProcessMouse(GameState &gameState, GameScene &gameScene);
 	void ProcessLimitedKeys(std::vector<int> keys, GameState &gameState) override;
 	
 private:
@@ -35,7 +36,8 @@ private:
 		CONFIG_PLAYER_LEFT = KEYBOARD_D,
 		CONFIG_PLAYER_RIGHT = KEYBOARD_A,
 		CONFIG_FORCE_END = KEYBOARD_C,
-		CONFIG_DEBUG_TOGGLE = KEYBOARD_L
+		CONFIG_DEBUG_TOGGLE = KEYBOARD_L,
+		CONFIG_WEAPON_SWITCH_1 = KEYBOARD_1
 	};
 
 	void Force_End(GameState &gamestate);
@@ -45,6 +47,7 @@ private:
 	void Player_Left(GameScene &gamescene);
 	void Player_Right(GameScene &gamescene);
 	void Debug_Toggle(GameState &gamestate);
+	void Switch_Weapon(int weapon);
 	int DetermineOrientation(std::vector<int> keys);
 
 	vector<StandardGameObject*> controlledEntities;

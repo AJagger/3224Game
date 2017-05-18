@@ -3,3 +3,4 @@
 2,deadalus.asciimesh
 3,bigSquare.asciimesh
 4,demoBackground.asciimesh
+5,circleProjectile.asciimesh

@@ -99,6 +99,18 @@
     <ClInclude Include="Game\CSC3224Game\stdafx.h">
       <Filter>Game\CSC3224Game</Filter>
     </ClInclude>
+    <ClInclude Include="Game\CSC3224Game\GameRules.h">
+      <Filter>Game\CSC3224Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CSC3224Game\StandardGameObject.h">
+      <Filter>Game\CSC3224Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CSC3224Game\StandardKeyInterpreter.h">
+      <Filter>Game\CSC3224Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Frameworks\CustContactListener.h">
+      <Filter>Frameworks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -151,6 +163,18 @@
     </ClCompile>
     <ClCompile Include="Game\DemoCode\DemoKeyInterpreter.cpp">
       <Filter>Game\DemoCode</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CSC3224Game\GameRules.cpp">
+      <Filter>Game\CSC3224Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CSC3224Game\StandardGameObject.cpp">
+      <Filter>Game\CSC3224Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CSC3224Game\StandardKeyInterpreter.cpp">
+      <Filter>Game\CSC3224Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Frameworks\CustContactListener.cpp">
+      <Filter>Frameworks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

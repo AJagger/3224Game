@@ -29,6 +29,24 @@ public:
 	float x;
 	float y;
 
+	void Normalise() {
+		float length = Length();
+
+		if (length != 0.0f) {
+			length = 1.0f / length;
+			x = x * length;
+			y = y * length;
+		}
+	}
+
+	float Length() const {
+		return sqrt((x*x) + (y*y));
+	}
+
+	inline Vector2  operator*(const float a) const {
+		return Vector2(x * a, y * a);
+	}
+
 	void ToZero(){
 		x = 0.0f;
 		y = 0.0f;

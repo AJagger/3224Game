@@ -35,7 +35,7 @@ bool DemoGameRules::CheckVictoryConditions(GameScene * gameScene, GameState * ga
 	bool victory = false;
 
 	//Search through scene entities looking for player controlled entities. Once found, check if their position to see if they have completed the level
-	DemoGameObject *returnedEntity = gameScene->gameObjects.TryToGetFirst();
+	StandardGameObject *returnedEntity = gameScene->gameObjects.TryToGetFirst();
 	if (returnedEntity != nullptr)	//Continue only if there is a returned item (i.e. don't try to do anything if there are no objects in the data structure)
 	{
 		if (returnedEntity->playerControlled)

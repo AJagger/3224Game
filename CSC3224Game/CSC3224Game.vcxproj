@@ -161,6 +161,7 @@
     <ClInclude Include="Core\GameShutdown.h" />
     <ClInclude Include="Core\GameState.h" />
     <ClInclude Include="Core\stdafx.h" />
+    <ClInclude Include="Frameworks\CustContactListener.h" />
     <ClInclude Include="Frameworks\DataArray.h" />
     <ClInclude Include="Frameworks\Draw.h" />
     <ClInclude Include="Frameworks\KeyInterpreter.h" />
@@ -168,6 +169,9 @@
     <ClInclude Include="Frameworks\ResouceLoader.h" />
     <ClInclude Include="Frameworks\Sound.h" />
     <ClInclude Include="Frameworks\stdafx.h" />
+    <ClInclude Include="Game\CSC3224Game\GameRules.h" />
+    <ClInclude Include="Game\CSC3224Game\StandardGameObject.h" />
+    <ClInclude Include="Game\CSC3224Game\StandardKeyInterpreter.h" />
     <ClInclude Include="Game\CSC3224Game\stdafx.h" />
     <ClInclude Include="Game\DemoCode\DemoGameObject.h" />
     <ClInclude Include="Game\DemoCode\DemoGameRules.h" />
@@ -184,12 +188,16 @@
     <ClCompile Include="Core\GameShutdown.cpp" />
     <ClCompile Include="Core\GameState.cpp" />
     <ClCompile Include="CSC3224Game.cpp" />
+    <ClCompile Include="Frameworks\CustContactListener.cpp" />
     <ClCompile Include="Frameworks\DataArray.cpp" />
     <ClCompile Include="Frameworks\Draw.cpp" />
     <ClCompile Include="Frameworks\KeyInterpreter.cpp" />
     <ClCompile Include="Frameworks\PhysicsResolver.cpp" />
     <ClCompile Include="Frameworks\ResouceLoader.cpp" />
     <ClCompile Include="Frameworks\Sound.cpp" />
+    <ClCompile Include="Game\CSC3224Game\GameRules.cpp" />
+    <ClCompile Include="Game\CSC3224Game\StandardGameObject.cpp" />
+    <ClCompile Include="Game\CSC3224Game\StandardKeyInterpreter.cpp" />
     <ClCompile Include="Game\DemoCode\DemoGameObject.cpp" />
     <ClCompile Include="Game\DemoCode\DemoGameRules.cpp" />
     <ClCompile Include="Game\DemoCode\DemoKeyInterpreter.cpp" />

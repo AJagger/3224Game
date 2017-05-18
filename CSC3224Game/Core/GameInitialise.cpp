@@ -17,6 +17,7 @@
 #include "Dynamics/b2World.h"
 #include "Common/b2Math.h"
 #include "../Frameworks/PhysicsResolver.h"
+#include "../Frameworks/CustContactListener.h"
 
 GameInitialise::GameInitialise()
 {
@@ -40,9 +41,9 @@ GameLoop* GameInitialise::InitialiseGame()
 		DataArray<GLuint> *gameTextures = new DataArray<GLuint>();
 		DataArray<CollisionMesh> *gameCollisionMeshes = new DataArray<CollisionMesh>();
 
-		if(ResourceLoader::LoadMeshes(gameMeshes, "Game\\DemoCode\\DemoMeshes") &&
-			ResourceLoader::LoadTextures(gameTextures, "Game\\DemoCode\\DemoTextures") &&
-			ResourceLoader::LoadCollisionMeshes(gameCollisionMeshes, "Game\\DemoCode\\DemoCollisionMeshes"))
+		if(ResourceLoader::LoadMeshes(gameMeshes, "Game\\CSC3224Game\\Meshes") &&
+			ResourceLoader::LoadTextures(gameTextures, "Game\\CSC3224Game\\Textures") &&
+			ResourceLoader::LoadCollisionMeshes(gameCollisionMeshes, "Game\\CSC3224Game\\CollisionMeshes"))
 		{
 			//Initialise PhysicsEngine
 			b2World *world = InitPhysicsEngine();
@@ -78,7 +79,7 @@ b2World* GameInitialise::InitPhysicsEngine()
 	//Create a new physics world in which collisions and movement are simulated. Set the gravity to 0,0 as this is a 2D top-down game.
 	b2World *world = new b2World(b2Vec2(0.0f, 0.0f));
 	world->SetAllowSleeping(false);							//Set Sleeping to false
-
+	world->SetContactListener(new CustContactListener);
 	return world;
 }
 

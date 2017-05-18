@@ -21,7 +21,7 @@ public:
 	
 	static bool LoadTextures(DataArray<GLuint> *textures, const string & texDirPath);
 	static bool LoadMeshes(DataArray<Mesh*> *meshes, const string & meshDirPath);
-	static bool LoadObjectList(DataArray<DemoGameObject> *gameObjects, const string &sceneFile);
+	static bool LoadObjectList(DataArray<StandardGameObject> *gameObjects, const string &sceneFile);
 	static bool LoadCollisionMeshes(DataArray<CollisionMesh> *gameCollisionMeshes, const string &meshDirPath);
 	static CollisionMesh ImportCollisionMesh(const string &collisionMeshPath);
 

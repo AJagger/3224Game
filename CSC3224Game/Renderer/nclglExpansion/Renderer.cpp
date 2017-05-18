@@ -25,8 +25,8 @@ Renderer::Renderer(Window &parent) : OGLRenderer(parent) {
 	init = true;
 
 	//The projMatrix defines how much pf the canvas can be seen - Setup for the test level is a 32x20 (16:10) canvas
-	projMatrix = Matrix4::Orthographic(-1, 100, 32, 0, 20, 0);
-
+	projMatrix = Matrix4::Orthographic(-2, 100, 32, 0, 20, 0);
+	
 	filtering = true;
 	usingDepth = false;
 	usingAlpha = false;

@@ -111,7 +111,7 @@ template<class T> int DataArray<T>::GetId(T & object)
 	{
 		if (&data[i].object == &object)
 		{
-			id = i;
+			id = data[i].id;
 			break;
 		}
 	}

@@ -22,9 +22,9 @@ Draw::~Draw()
 void Draw::RenderObjects(GameScene *scene, GameState *state)
 {
 	vector<DrawData> renderData = vector<DrawData>();
-	DataArray<DemoGameObject> *objects = &scene->gameObjects;
+	DataArray<StandardGameObject> *objects = &scene->gameObjects;
 
-	DemoGameObject *object = objects->TryToGetFirst();
+	StandardGameObject *object = objects->TryToGetFirst();
 	if(object != nullptr)
 	{
 		state->renderer.AddToPipeline(*scene->gameMeshes->TryToGet(object->meshId), *scene->gameTextures->TryToGet(object->textureId), object->position, object->rotation);

@@ -169,9 +169,11 @@ bool ResourceLoader::LoadCollisionMeshes(DataArray<CollisionMesh> *gameCollision
 		//Create new CollisionMesh in the DataArray, import the mesh from the file and add it
 		CollisionMesh importedMesh = ImportCollisionMesh(meshDirPath + "\\" + meshFile);
 		CollisionMesh *tempMesh = gameCollisionMeshes->CreateNew();
+		tempMesh->meshType = importedMesh.meshType;
 		tempMesh->points = importedMesh.points;
 		tempMesh->pointCount = importedMesh.pointCount;
-
+		tempMesh->radius = importedMesh.radius;
+		
 		ss.clear();
 	}
 
@@ -186,46 +188,66 @@ CollisionMesh ResourceLoader::ImportCollisionMesh(const string & collisionMeshPa
 	ifstream f(collisionMeshPath);
 
 	int numVertices = 0;
+	int meshType = 0;
 
-	f >> numVertices;
+	f >> meshType;
 
-	b2Vec2 *vertices = new b2Vec2[numVertices];
+	//If mesh is a polygon
+	if (meshType == 0) {
 
-	float x, y;
-	char buffer[50];
+		f >> numVertices;
 
-	stringstream ss;
-	f.ignore(500, '\n');
+		b2Vec2 *vertices = new b2Vec2[numVertices];
 
-	for (int j = 0; j < numVertices; j++)
-	{
-		f.getline(buffer, 50);
-		ss << buffer;
+		float x, y;
+		char buffer[50];
 
-		for (int i = 0; i < 2; ++i) {
+		stringstream ss;
+		f.ignore(500, '\n');
 
-			ss.getline(buffer, 50, ',');
+		for (int j = 0; j < numVertices; j++)
+		{
+			f.getline(buffer, 50);
+			ss << buffer;
 
-			switch (i)
-			{
-			case 0: x = stof(buffer); break;
-			case 1: y = stof(buffer); break;
+			for (int i = 0; i < 2; ++i) {
+
+				ss.getline(buffer, 50, ',');
+
+				switch (i)
+				{
+				case 0: x = stof(buffer); break;
+				case 1: y = stof(buffer); break;
+				}
+
+				vertices[j] = b2Vec2(x, y);
 			}
 
-			vertices[j] = b2Vec2(x, y);
+			ss.clear();
 		}
 
-		ss.clear();
+		f.close();
+
+		return CollisionMesh{ CM_POLYGON, vertices, numVertices, 0 };
+	}
+	//Else mesh is a circle
+	else
+	{
+		float radius = 0;
+		f >> radius;
+		b2Vec2 *vertices = new b2Vec2[numVertices];
+
+
+		f.close();
+
+		return CollisionMesh{ CM_CIRCLE, vertices, numVertices, radius };
 	}
 
-	f.close();
-
-	return CollisionMesh{ vertices, numVertices };
 }
 
 
 
-bool ResourceLoader::LoadObjectList(DataArray<DemoGameObject>* gameObjects, const string & sceneFile)
+bool ResourceLoader::LoadObjectList(DataArray<StandardGameObject>* gameObjects, const string & sceneFile)
 {
 	char buffer[BUFFER_SIZE];
 
@@ -245,7 +267,7 @@ bool ResourceLoader::LoadObjectList(DataArray<DemoGameObject>* gameObjects, cons
 		ss << buffer;
 
 		//Create new GameObject in the DataArray
-		DemoGameObject *import = gameObjects->CreateNew();
+		StandardGameObject *import = gameObjects->CreateNew();
 
 		for (int i = 0; i < 19; i++)
 		{

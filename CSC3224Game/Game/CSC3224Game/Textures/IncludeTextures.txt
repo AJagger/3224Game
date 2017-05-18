@@ -4,3 +4,4 @@
 3,deadalus.tga
 4,background.tga
 5,barrier.tga
+6,yellowProjectile.tga

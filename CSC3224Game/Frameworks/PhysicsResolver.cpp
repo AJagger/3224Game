@@ -27,7 +27,7 @@ PhysicsResolver::~PhysicsResolver()
 {
 }
 
-b2Body * PhysicsResolver::CreatePhysicsObjectFromGameObject(b2World *world, DemoGameObject * gameObject, CollisionMesh *collisionMesh)
+b2Body * PhysicsResolver::CreatePhysicsObjectFromGameObject(b2World *world, StandardGameObject * gameObject, CollisionMesh *collisionMesh)
 {
 	//Create the body definition which contains the physics object attributes
 	b2BodyDef physObjectDefinition = b2BodyDef();
@@ -36,12 +36,19 @@ b2Body * PhysicsResolver::CreatePhysicsObjectFromGameObject(b2World *world, Demo
 	physObjectDefinition.userData = gameObject;
 
 	//Set up the actual collision box shape
-	b2PolygonShape physShape;
-	physShape.Set(collisionMesh->points, collisionMesh->pointCount);
+	b2PolygonShape physShapePoly;
+	b2CircleShape physShapeCircle;
+	if (collisionMesh->meshType == CM_POLYGON) {
+		physShapePoly.Set(collisionMesh->points, collisionMesh->pointCount);
+	}
+	else
+	{
+		physShapeCircle.m_radius = collisionMesh->radius;
+	}
 
 	//More attribute setting and inclusion of the collision box shape
 	b2FixtureDef physShapeDef;
-	physShapeDef.shape = &physShape;
+	collisionMesh->meshType == CM_POLYGON ? physShapeDef.shape = &physShapePoly : physShapeDef.shape = &physShapeCircle;
 	physShapeDef.density = 10.0;
 	physShapeDef.isSensor = false;
 
@@ -52,7 +59,7 @@ b2Body * PhysicsResolver::CreatePhysicsObjectFromGameObject(b2World *world, Demo
 	return objectBody;
 }
 
-void PhysicsResolver::RemovePhysicsObjectFromWorld(b2World * world, DemoGameObject * gameobject)
+void PhysicsResolver::RemovePhysicsObjectFromWorld(b2World * world, StandardGameObject * gameobject)
 {
 	b2Body *deleteBody = NULL;
 
@@ -71,14 +78,18 @@ void PhysicsResolver::RemovePhysicsObjectFromWorld(b2World * world, DemoGameObje
 	{
 		world->DestroyBody(deleteBody);
 	}
+	else
+	{
+		std::cout << "Failed to find physics body to delete";
+	}
 
 }
 
 //Update the physics objects using game engine data, run the simulation for a tick and then update the game engine objects with physics engine data.
-void PhysicsResolver::SimulateActions(b2World *world, DataArray<DemoGameObject> *gameObjects)
+void PhysicsResolver::SimulateActions(b2World *world, DataArray<StandardGameObject> *gameObjects)
 {
 	//Iterate through the game objects and if they are non-static, update their movement vectors within the simulation
-	DemoGameObject *returnedEntity = gameObjects->TryToGetFirst();
+	StandardGameObject *returnedEntity = gameObjects->TryToGetFirst();
 	b2Body *returnedEntityPhysicsObject = nullptr;
 	if (returnedEntity != nullptr)	//Continue only if there is a returned item (i.e. don't try to do anything if there are no objects in the data structure)
 	{
@@ -130,8 +141,10 @@ void PhysicsResolver::SimulateActions(b2World *world, DataArray<DemoGameObject> 
 				//Transfer the updated location from the physics object back to the game object
 				returnedEntity->position = Vector3(returnedEntityPhysicsObject->GetPosition().x, returnedEntityPhysicsObject->GetPosition().y, zPos);
 
-				//Set the game object velocity back to 0 in preparation for next loop
-				returnedEntity->movementVector = Vector2(0, 0);
+				//Set the game object velocity back to 0 in preparation for next loop if the object is not a projectile
+				if (returnedEntity->entityType != PROJECTILE) {
+					returnedEntity->movementVector = Vector2(0, 0);
+				}
 			}
 		}
 
@@ -151,8 +164,10 @@ void PhysicsResolver::SimulateActions(b2World *world, DataArray<DemoGameObject> 
 					//Transfer the updated location from the physics object back to the game object
 					returnedEntity->position = Vector3(returnedEntityPhysicsObject->GetPosition().x, returnedEntityPhysicsObject->GetPosition().y, zPos);
 
-					//Set the game object velocity back to 0 in preparation for next loop
-					returnedEntity->movementVector = Vector2(0, 0);
+					//Set the game object velocity back to 0 in preparation for next loop if the object is not a projectile
+					if (returnedEntity->entityType != PROJECTILE) {
+						returnedEntity->movementVector = Vector2(0, 0);
+					}
 				}
 			}
 		}
