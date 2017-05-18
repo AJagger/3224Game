@@ -39,6 +39,10 @@ void Draw::RenderObjects(GameScene *scene, GameState *state)
 		}
 	}
 
+	//Add the HUD Healthbar
+	Vector3 healthbarPos = Vector3(0 - ( 32 - (32 * state->HUDHealth)), 0 + state->cameraYValue, 2);
+	state->renderer.AddToPipeline(*scene->gameMeshes->TryToGet(10), *scene->gameTextures->TryToGet(9), healthbarPos, 0);
+
 	state->renderer.RenderScene();
 
 }

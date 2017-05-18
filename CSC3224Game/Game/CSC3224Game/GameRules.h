@@ -36,5 +36,6 @@ private:
 	static void DeleteOOBProjectiles(GameScene * gameScene, GameState * gameState);
 	static void AIMove(GameScene *gameScene, StandardGameObject* aIObject, StandardGameObject* playerObject);
 	static void AITarget(GameScene *gameScene, GameState *gameState, StandardGameObject* aIObject, StandardGameObject* playerObject);
+	static void UpdateHUD(GameScene *gameScene, GameState *gameState);
 
 };

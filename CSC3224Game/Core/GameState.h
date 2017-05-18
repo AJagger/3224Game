@@ -27,4 +27,6 @@ public:
 	Renderer renderer = Renderer(gameWindow);
 	float cameraYValue = 0;
 	long long tickCount = 0;
+	float HUDHealth = 1;
+
 };

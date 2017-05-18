@@ -7,4 +7,5 @@
 6,hatak.asciimesh
 7,glider.asciimesh
 8,miniCircle.asciimesh
-9,mediumCircle.asciiMesh
+9,mediumCircle.asciimesh
+10,healthbar.asciimesh

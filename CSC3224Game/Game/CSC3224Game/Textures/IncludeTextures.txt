@@ -7,3 +7,4 @@
 6,yellowProjectile.tga
 7,hatak.tga
 8,glider.tga
+9,healthbar.tga

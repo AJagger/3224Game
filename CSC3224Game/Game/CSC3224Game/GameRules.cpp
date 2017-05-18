@@ -21,6 +21,7 @@ void GameRules::EnactGameRules(GameScene * gameScene, GameState * gameState)
 	}
 	DeleteOOBProjectiles(gameScene, gameState);
 	CheckForEntitiesToRemove(gameScene);
+	UpdateHUD(gameScene, gameState);
 }
 
 void GameRules::Fire(GameScene * gameScene, GameState * gameState, StandardGameObject * source, Vector2 targetLocation)
@@ -91,16 +92,6 @@ void GameRules::Fire(GameScene * gameScene, GameState * gameState, StandardGameO
 			newProjectile->position.z = 2;
 
 			gameScene->CreateRelatedPhysicsObject(gameScene->gameObjects.GetId(*newProjectile));
-			//StandardGameObject *newProjectile = gameScene->gameObjects.CreateNew();
-			//newProjectile->ConfigureDefaultProjectile(5, 6);
-			//newProjectile->physMeshId = 3;
-			//newProjectile->hasTarget = false;
-			//newProjectile->weapon = BC304_RAILGUN;
-			//newProjectile->AIEnabled = false;
-			//newProjectile->hostile = false;
-			//newProjectile->markedForDeletion = false;
-
-			//newProjectile->position = Vector3(mouseLocation.x, mouseLocation.y, 1);
 		}
 	}
 
@@ -332,7 +323,7 @@ bool GameRules::CheckVictoryConditions(GameScene * gameScene, GameState * gameSt
 		}
 	}
 
-	if(playerCount == 0)
+	if(playerCount == 0 || NPCCount == 0)
 	{
 		victory = true;
 	}
@@ -431,5 +422,32 @@ void GameRules::AITarget(GameScene * gameScene, GameState *gameState, StandardGa
 	{
 		Fire(gameScene, gameState, aIObject, Vector2(playerObject->position.x, playerObject->position.y));
 	}
+}
+
+void GameRules::UpdateHUD(GameScene * gameScene, GameState * gameState)
+{
+	bool playerFound = false;
+
+	//Search through scene for player entity
+	StandardGameObject *returnedEntity = gameScene->gameObjects.TryToGetFirst();
+	if (returnedEntity != nullptr)	//Continue only if there is a returned item (i.e. don't try to do anything if there are no objects in the data structure)
+	{
+		if (returnedEntity->entityType == PLAYER && returnedEntity->playerControlled)
+		{
+			gameState->HUDHealth = (float)(returnedEntity->health) / 5000; //SHIP_BC304 health %
+			playerFound = true;
+		}
+
+		while (gameScene->gameObjects.IsNext() && !playerFound)
+		{
+			returnedEntity = gameScene->gameObjects.Next();
+			if (returnedEntity->entityType == PLAYER && returnedEntity->playerControlled)
+			{
+				gameState->HUDHealth = (float)(returnedEntity->health) / 5000; //SHIP_BC304 health %
+				playerFound = true;
+			}
+		}
+	}
+
 }
 
