@@ -5,3 +5,5 @@
 4,background.tga
 5,barrier.tga
 6,yellowProjectile.tga
+7,hatak.tga
+8,glider.tga

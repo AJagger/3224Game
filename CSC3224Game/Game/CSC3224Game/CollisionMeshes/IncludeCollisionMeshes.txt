@@ -2,3 +2,7 @@
 1,deadalus.asciimesh
 2,square.asciimesh
 3,smallCircle.asciimesh
+4,hatak.asciimesh
+5,glider.asciimesh
+6,miniCircle.asciimesh
+7,mediumCircle.asciimesh

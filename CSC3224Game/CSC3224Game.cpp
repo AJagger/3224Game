@@ -8,16 +8,23 @@
 
 int main()
 {
-	GameLoop *game = GameInitialise::InitialiseGame();
-	if (game)
-	{
-		game->RunLoop();
-		GameShutdown::TerminateGame(game);
+	bool finish = false;
+
+	while (!finish) {
+		GameLoop *game = GameInitialise::InitialiseGame();
+		if (game)
+		{
+			game->RunLoop();
+			GameShutdown::TerminateGame(game);
+		}
+		else
+		{
+			//Something ****ed up
+		}
+		finish = true;
+		cout << "GameLoop Ended";
 	}
-	else
-	{
-		//Something ****ed up
-	}
+
     return 0;
 }
 

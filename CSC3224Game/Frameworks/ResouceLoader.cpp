@@ -269,7 +269,7 @@ bool ResourceLoader::LoadObjectList(DataArray<StandardGameObject>* gameObjects, 
 		//Create new GameObject in the DataArray
 		StandardGameObject *import = gameObjects->CreateNew();
 
-		for (int i = 0; i < 19; i++)
+		for (int i = 0; i < 21; i++)
 		{
 			ss.getline(buffer, BUFFER_SIZE, ',');
 			switch(i)
@@ -293,7 +293,22 @@ bool ResourceLoader::LoadObjectList(DataArray<StandardGameObject>* gameObjects, 
 				case 16: import->targetObjectId = atoi(buffer); break;						//targetObjectId
 				case 17: import->lifeTime = atoi(buffer); break;							//Lifetime
 				case 18: import->physMeshId = atoi(buffer); break;							//CollisionMeshId
+				case 19: import->shipType = ShipType(atoi(buffer)); break;					//ShipType
+				case 20: import->weapon = WeaponSelection(atoi(buffer)); break;				//WeaponSelection
 			}
+		}
+
+		if(import->shipType == SHIP_BC304)
+		{
+			import->health = 5000;
+		}
+		else if (import->shipType == SHIP_HATAK)
+		{
+			import->health = 2500;
+		}
+		else if (import->shipType == SHIP_GLIDER)
+		{
+			import->health = 500;
 		}
 
 		ss.clear();

@@ -20,5 +20,6 @@ public:
 	~Draw();
 
 	static void RenderObjects(GameScene *scene, GameState *state);
+	static void UpdateCamera(GameState *state, Vector3 playerCharPosition);
 };
 

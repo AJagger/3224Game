@@ -15,7 +15,18 @@ enum GameEntityType
 enum WeaponSelection
 {
 	NO_WEAPON_SELECTED = 0,
-	BC304_RAILGUN = 1
+	BC304_RAILGUN = 1,
+	HATAK_CANNON = 5,
+	GLIDER_CANNON = 6
+};
+
+enum ShipType
+{
+	NOT_SHIP = 0,
+	SHIP_BC304 = 1,
+	SHIP_HATAK = 2,
+	SHIP_GLIDER = 3,
+	SHIP_GOAOULD_BOSS = 4
 };
 
 class StandardGameObject : public GameObject
@@ -25,14 +36,15 @@ public:
 	StandardGameObject(GameEntityType type, int meshId, int textureId = 0);
 	~StandardGameObject();
 
-	GameEntityType entityType = UNINITIALISED;		
+	GameEntityType entityType = UNINITIALISED;	
+	ShipType shipType = NOT_SHIP;
 	bool hasTarget = false;							// hasTarget &
 	int targetObjectId = -1;						// targetObjectId used for NPCs & Projectiles
 	WeaponSelection weapon = NO_WEAPON_SELECTED;	// weapon selection for AI and player ships
 	int lifeTime = 0;								// lifeTime used for Effects
 
 	bool markedForDeletion = false;
-	int health = 1000;
+	int health = 1;
 
 	unsigned int wep1LastFire = 0;
 

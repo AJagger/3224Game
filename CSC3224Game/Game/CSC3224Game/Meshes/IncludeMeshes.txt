@@ -4,3 +4,7 @@
 3,bigSquare.asciimesh
 4,demoBackground.asciimesh
 5,circleProjectile.asciimesh
+6,hatak.asciimesh
+7,glider.asciimesh
+8,miniCircle.asciimesh
+9,mediumCircle.asciiMesh

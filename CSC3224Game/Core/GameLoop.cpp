@@ -49,15 +49,18 @@ void GameLoop::RunLoop()
 		if (!state->paused && (clock() - lastTick) >= tickLength)
 		{
 			lastTick = clock();
+			state->tickCount++;
 
 			//Process Inputs
 			keyInterp.ProcessKeyPresses(input, *state, *scene);
-			//AI Processes Insert point - the game idea I have has very rudimentary AI processes which can be created when creating the actual game
+			//AI Processes
+			GameRules::AIOperations(scene, state);
 			//Process GameRules
 			GameRules::EnactGameRules(scene, state);
 			//UpdatePositions (collision detection & resolution happens here)
 			PhysicsResolver::SimulateActions(scene->world, &scene->gameObjects);
 			//RenderScene
+			GameRules::UpdateCamera(scene, state);
 			renderer.RenderObjects(scene, state);
 			//Process Audio
 			Sound::ProcessAudio();

@@ -25,4 +25,6 @@ public:
 	//Global Game Data
 	Window gameWindow = Window("DemoGameEngine", 1920, 1200, false);
 	Renderer renderer = Renderer(gameWindow);
+	float cameraYValue = 0;
+	long long tickCount = 0;
 };

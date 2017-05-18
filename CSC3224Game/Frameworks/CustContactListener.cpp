@@ -2,6 +2,7 @@
 #include "CustContactListener.h"
 #include "Dynamics/Contacts/b2Contact.h"
 #include "../Game/CSC3224Game/StandardGameObject.h"
+#include "../Game/CSC3224Game/GameRules.h"
 
 CustContactListener::CustContactListener()
 {
@@ -35,7 +36,7 @@ void CustContactListener::BeginContact(b2Contact* contact)
 				if((objA->entityType == PROJECTILE && objA->hostile) || (objB->entityType == PROJECTILE && objB->hostile))
 				{
 					objA->entityType == PROJECTILE ? objA->markedForDeletion = true : objB->markedForDeletion = true;
-					//objA->entityType == PROJECTILE ? objB->health -= 
+					objA->entityType == PROJECTILE ? GameRules::Damage(objA, objB) : GameRules::Damage(objB, objA);
 				}
 				else
 				{
@@ -47,10 +48,25 @@ void CustContactListener::BeginContact(b2Contact* contact)
 			{
 				contact->SetEnabled(false);
 			}
+			//If other object is an NPC
+			else if(objA->entityType == NPC || objB->entityType == NPC)
+			{
+				//If both entities are hostile then ignore the collision
+				if(objA->hostile && objB->hostile)
+				{
+					contact->SetEnabled(false);
+				}
+				else
+				{
+					objA->entityType == PROJECTILE ? objA->markedForDeletion = true : objB->markedForDeletion = true;
+					objA->entityType == PROJECTILE ? GameRules::Damage(objA, objB) : GameRules::Damage(objB, objA);
+				}
+			}
 			//Else
 			else 
 			{
 				objA->entityType == PROJECTILE ? objA->markedForDeletion = true : objB->markedForDeletion = true;
+				objA->entityType == PROJECTILE ? GameRules::Damage(objA, objB) : GameRules::Damage(objB, objA);
 			}
 		}
 	}

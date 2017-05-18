@@ -24,7 +24,7 @@ void StandardKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState 
 		GetCursorPos(&p);
 		ScreenToClient(gameState.gameWindow.GetHandle(), &p);
 		mousePos.x = ((float)p.x *32) / 1920;
-		mousePos.y = ((1080 - (float)p.y)*20)  / 1080;
+		mousePos.y = (((1080 - (float)p.y)*20)  / 1080) + gameState.cameraYValue;
 		ShowCursor(TRUE);
 		//mousePos.x = mousePos.x / 32;
 		//mousePos.y = mousePos.y / 20;
@@ -90,7 +90,7 @@ void StandardKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState 
 				{
 					if (controlledEntities[i]->entityType == PLAYER)
 					{
-						GameRules::Fire(&gameScene, controlledEntities[i], mousePos);
+						GameRules::Fire(&gameScene, &gameState, controlledEntities[i], mousePos);
 					}
 				}
 			}

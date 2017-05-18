@@ -79,6 +79,8 @@ void StandardGameObject::ConfigureDefaultNPC(int meshId, int textureId)
 
 	this->meshId = meshId;
 	this->textureId = textureId;
+
+	health = 2500;
 }
 
 void StandardGameObject::ConfigureDefaultPlayer(int meshId, int textureId)
@@ -102,6 +104,8 @@ void StandardGameObject::ConfigureDefaultPlayer(int meshId, int textureId)
 
 	this->meshId = meshId;
 	this->textureId = textureId;
+
+	health = 5000;
 }
 
 void StandardGameObject::ConfigureDefaultProjectile(int meshId, int textureId)

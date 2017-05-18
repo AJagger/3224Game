@@ -36,6 +36,8 @@ public:
 	void ToggleDepth();
 	void ToggleAlphaBlend();
 	void ToggleBlendMode();
+	void SetProjectionMatrix(Matrix4 matrix) { projMatrix = matrix; }
+	Matrix4 GetProjectionMatrix() { return projMatrix; }
 
 	void AddToPipeline(Mesh *mesh, GLuint texture, Vector3 position, int rotation);
 

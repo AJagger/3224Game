@@ -42,3 +42,20 @@ void Draw::RenderObjects(GameScene *scene, GameState *state)
 	state->renderer.RenderScene();
 
 }
+
+void Draw::UpdateCamera(GameState *state, Vector3 playerCharPosition)
+{
+	float bottomY = playerCharPosition.y - 5;
+	float topY = bottomY + 20;
+
+	if(bottomY <= 0)
+	{
+		state->renderer.SetProjectionMatrix(Matrix4::Orthographic(-2, 100, 32, 0, 20, 0));
+		state->cameraYValue = 0;
+	}
+	else
+	{
+		state->renderer.SetProjectionMatrix(Matrix4::Orthographic(-2, 100, 32, 0, topY, bottomY));
+		state->cameraYValue = bottomY;
+	}
+}

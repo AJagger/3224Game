@@ -41,7 +41,7 @@ public:
 	void FreeAll();
 
 private:
-	static const int MAX_OBJECTS = 1000;
+	static const int MAX_OBJECTS = 2000;
 	int count;
 	int nextId;
 	int lastLookup;

@@ -50,7 +50,7 @@ GameLoop* GameInitialise::InitialiseGame()
 
 			//Initialise Game Scene & load test level
 			GameScene* gameScene = new GameScene(gameMeshes, gameTextures, gameCollisionMeshes, world);
-			gameScene->LoadLevel("Game\\DemoCode\\DemoLevelData\\DemoScene.csv");
+			gameScene->LoadLevel("Game\\CSC3224Game\\LevelData\\Level1.csv");
 
 			GameLoop* gameLoop = new GameLoop(gameState, gameScene);
 			return gameLoop;

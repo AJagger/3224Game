@@ -16,4 +16,6 @@ GameState::GameState()
 
 GameState::~GameState()
 {
+
+	DestroyWindow(gameWindow.GetHandle());
 }
