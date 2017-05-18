@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class models the game objects that are used in the game.
+*/
+
 #pragma once
 #include <string>
 #include "../../Core/GameObject.h"

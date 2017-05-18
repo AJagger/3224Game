@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class models the game objects that are used in the game.
+*/
+
 #include "stdafx.h"
 #include "StandardGameObject.h"
 

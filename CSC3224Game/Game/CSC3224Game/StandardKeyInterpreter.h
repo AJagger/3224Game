@@ -1,13 +1,7 @@
 /* CSC3224 Code
 * Author: Aidan Jagger | 130281034
 * Class Description:
-* This class implements the abstract KeyInterpreter class. It is responsible for processing collected user keypresses.
-* It supports dealing with multiple keypresses and multiple player controlled objects.
-*
-* Currently the key configuration is stored in an enum in the header file. This is not ideal but it is functional.
-*
-* The key presses are collected using the Keyboard class included in the ncgl library and they are referred to by values declared in
-* an enum in the Keyboard class.
+* This class is a modification of the DemoKeyInterpreter provided in the original engine demo and deals with collecting and processing all input data. It has been expanded to include mouse data collection.
 */
 
 #pragma once

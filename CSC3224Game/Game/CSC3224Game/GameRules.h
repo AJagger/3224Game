@@ -1,9 +1,7 @@
 /* CSC3224 Code
 * Author: Aidan Jagger | 130281034
 * Class Description:
-* A very basic implementation of a class dealing with game-specific logic. For an actual game, the victory conditions would be a lot more complex but for the demo
-* the simple victory condition implemented is enough.
-* This class is called in the game loop and is intended to contain game logic in addition to the victory conditions in the game for coursework 2.
+* This class contains all of the logic for the game and is called from multiple locations. It also contains very basic AI methods to instruct the enemies where to move and where to shoot.
 */
 
 #pragma once

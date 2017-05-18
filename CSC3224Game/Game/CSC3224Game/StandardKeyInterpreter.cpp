@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class is a modification of the DemoKeyInterpreter provided in the original engine demo and deals with collecting and processing all input data. It has been expanded to include mouse data collection.
+*/
+
 #include "stdafx.h"
 #include "StandardKeyInterpreter.h"
 #include "../../Frameworks/DataArray.cpp" //Temp fix to Linker Errors
@@ -23,13 +29,9 @@ void StandardKeyInterpreter::ProcessKeyPresses(std::vector<int> keys, GameState 
 		POINT p;
 		GetCursorPos(&p);
 		ScreenToClient(gameState.gameWindow.GetHandle(), &p);
-		mousePos.x = ((float)p.x *32) / 1920;
-		mousePos.y = (((1080 - (float)p.y)*20)  / 1080) + gameState.cameraYValue;
+		mousePos.x = ((float)p.x *32) / gameState.gameWindow.GetScreenSize().x;
+		mousePos.y = (((gameState.gameWindow.GetScreenSize().y - (float)p.y)*20)  / gameState.gameWindow.GetScreenSize().y) + gameState.cameraYValue;
 		ShowCursor(TRUE);
-		//mousePos.x = mousePos.x / 32;
-		//mousePos.y = mousePos.y / 20;
-		//mousePos.x = (mousePos.x / 192) + 10/* * 32*/;
-		//mousePos.y = (mousePos.y / 108) + 10/* * 20*/;
 	}
 
 	//If no key presses then do nothing

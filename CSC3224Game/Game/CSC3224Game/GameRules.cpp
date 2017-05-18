@@ -1,3 +1,9 @@
+/* CSC3224 Code
+* Author: Aidan Jagger | 130281034
+* Class Description:
+* This class contains all of the logic for the game and is called from multiple locations. It also contains very basic AI methods to instruct the enemies where to move and where to shoot.
+*/
+
 #include "stdafx.h"
 #include "GameRules.h"
 #include "../../Frameworks/DataArray.cpp"

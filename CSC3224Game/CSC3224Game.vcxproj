@@ -124,6 +124,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalUsingDirectories>../ncglExpansion/;../Renderer/GLEW/include/;../Renderer/ncgl/;../GLEW/include/;/Renderer/GLEW/include/;/Renderer/ncglExpansion/;/Renderer/nclgl/;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <AdditionalIncludeDirectories>$(SolutionDir)CSC3224Game/Physics/Box2D-master/Box2D/Box2D;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
