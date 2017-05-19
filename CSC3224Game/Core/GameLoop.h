@@ -17,6 +17,7 @@ public:
 
 	void RunLoop();
 	void SetTickLength(int tickLength);
+	void ResetLevel();
 
 private:
 	GameState *state;
@@ -27,6 +28,5 @@ private:
 	int tickLength;
 
 	void TempPositionUpdater(); //For testing purposes to allow the game loop to run without a physics engine
-
 
 };

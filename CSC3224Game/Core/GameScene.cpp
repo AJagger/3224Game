@@ -23,9 +23,9 @@ GameScene::GameScene(DataArray<Mesh*> *gameMeshes, DataArray<GLuint> *gameTextur
 
 GameScene::~GameScene()
 {
-	delete gameMeshes;
-	delete gameTextures;
-	delete gameCollisionMeshes;
+	//delete gameMeshes;
+	//delete gameTextures;
+	//delete gameCollisionMeshes;
 	delete world;
 	gameMeshes = nullptr;
 	gameTextures = nullptr;

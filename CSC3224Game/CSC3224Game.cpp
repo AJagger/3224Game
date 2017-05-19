@@ -10,19 +10,25 @@ int main()
 {
 	bool finish = false;
 
+	GameLoop *game = GameInitialise::InitialiseGame();
+
 	while (!finish) {
-		GameLoop *game = GameInitialise::InitialiseGame();
 		if (game)
 		{
 			game->RunLoop();
-			GameShutdown::TerminateGame(game);
 		}
 		else
 		{
 			//Something ****ed up
 		}
-		finish = true;
 		cout << "GameLoop Ended";
+
+		game->ResetLevel();
+	}
+
+	if (game)
+	{
+		GameShutdown::TerminateGame(game);
 	}
 
     return 0;

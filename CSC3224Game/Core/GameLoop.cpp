@@ -14,6 +14,7 @@
 #include "../Game/DemoCode/DemoGameRules.h"
 #include "../Game/CSC3224Game/StandardKeyInterpreter.h"
 #include "../Game/CSC3224Game/GameRules.h"
+#include "GameInitialise.h"
 
 GameLoop::GameLoop(GameState *gameState, GameScene *gameScene)
 {
@@ -105,4 +106,17 @@ void GameLoop::TempPositionUpdater()
 			}
 		}
 	}
+}
+
+void GameLoop::ResetLevel()
+{
+	auto colMesh = scene->gameCollisionMeshes;
+	auto mesh = scene->gameMeshes;
+	auto text = scene->gameTextures;
+	delete scene;
+
+	scene = new GameScene(mesh, text, colMesh, GameInitialise::InitPhysicsEngine());
+	scene->LoadLevel("Game\\CSC3224Game\\LevelData\\Level1.csv");
+
+	state->end = false;
 }
